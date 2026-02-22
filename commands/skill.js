@@ -52,7 +52,8 @@ function getAgents(manifest) {
 // skill add
 // ----------------------------------------------------------------
 
-async function skillAddCommand(source) {
+async function skillAddCommand(source, opts, cmd) {
+  const yes = cmd.parent?.opts().yes ?? false;
   const projectDir = process.cwd();
 
   console.log('\n  AI Factory - Add Remote Skill\n');
@@ -107,6 +108,10 @@ async function skillAddCommand(source) {
     } else if (allDetected.length === 1) {
       selectedSkills = allDetected;
       console.log(`  Detected skill: ${allDetected[0].name}`);
+    } else if (yes) {
+      // Non-interactive: install all
+      selectedSkills = allDetected;
+      console.log(`  Installing all ${allDetected.length} skills (-y)`);
     } else {
       // Interactive selection for collections
       console.log(`  Found ${allDetected.length} skills:\n`);
@@ -164,7 +169,8 @@ async function skillAddCommand(source) {
 // skill remove
 // ----------------------------------------------------------------
 
-async function skillRemoveCommand(name) {
+async function skillRemoveCommand(name, opts, cmd) {
+  const yes = cmd.parent?.opts().yes ?? false;
   const projectDir = process.cwd();
 
   console.log('\n  AI Factory - Remove Remote Skill\n');
@@ -193,6 +199,10 @@ async function skillRemoveCommand(name) {
       return;
     }
     skillsToRemove = [name];
+  } else if (yes) {
+    // Non-interactive: remove all
+    skillsToRemove = allNames;
+    console.log(`  Removing all ${allNames.length} skills (-y)`);
   } else {
     // Interactive selection
     const chosen = await selectMultiple(
@@ -280,7 +290,8 @@ function timeSince(isoDate) {
 // skill update
 // ----------------------------------------------------------------
 
-async function skillUpdateCommand(name) {
+async function skillUpdateCommand(name, opts, cmd) {
+  const yes = cmd.parent?.opts().yes ?? false;
   const projectDir = process.cwd();
 
   console.log('\n  AI Factory - Update Remote Skills\n');
@@ -307,7 +318,7 @@ async function skillUpdateCommand(name) {
       return;
     }
     allNames = [name];
-  } else if (allNames.length > 1) {
+  } else if (allNames.length > 1 && !yes) {
     // Ask: update all or select
     const mode = await selectOne(
       [
@@ -565,7 +576,8 @@ async function skillSyncCommand() {
 export function register(program) {
   const skill = program
     .command('skill')
-    .description('Manage remote skills');
+    .description('Manage remote skills')
+    .option('-y, --yes', 'Skip interactive prompts, use defaults');
 
   skill
     .command('add <source>')

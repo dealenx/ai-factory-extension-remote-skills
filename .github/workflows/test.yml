@@ -38,6 +38,14 @@ jobs:
         run: ai-factory extension list 2>&1 | grep "ai-factory-extension-remote-skills"
         working-directory: /tmp/test-project
 
-      - name: Verify skill command works
+      - name: Verify skill command works (empty)
         run: ai-factory skill list
+        working-directory: /tmp/test-project
+
+      - name: Install remote skill from GitHub
+        run: ai-factory skill add https://github.com/zarazhangrui/frontend-slides -y
+        working-directory: /tmp/test-project
+
+      - name: Verify skill appears in list
+        run: ai-factory skill list 2>&1 | grep "frontend-slides"
         working-directory: /tmp/test-project
