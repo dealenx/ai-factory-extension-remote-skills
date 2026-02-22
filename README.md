@@ -5,7 +5,7 @@ AI Factory extension for managing remote skills from GitHub repositories.
 ## Install
 
 ```bash
-ai-factory extension add https://github.com/user/ai-factory-extension-remote-skills
+ai-factory extension add https://github.com/dealenx/ai-factory-extension-remote-skills
 ```
 
 ## Commands
