@@ -19,6 +19,21 @@ ai-factory skill update [name]               # re-download from source
 ai-factory skill sync                        # sync skills with current agents
 ```
 
+## Usage
+
+```bash
+$ ai-factory skill add https://github.com/zarazhangrui/frontend-slides -y
+
+  AI Factory - Add Remote Skill
+
+  Downloading zarazhangrui/frontend-slides...
+  Detected skill: frontend-slides
+
+  + frontend-slides [claude, opencode]
+
+  Done. 1 skill(s) installed.
+```
+
 ## Requirements
 
 - Node.js 18+
