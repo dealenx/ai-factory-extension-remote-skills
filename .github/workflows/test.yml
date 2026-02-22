@@ -35,7 +35,7 @@ jobs:
         working-directory: /tmp/test-project
 
       - name: Verify extension registered
-        run: ai-factory extension list | grep -q "ai-factory-extension-remote-skills"
+        run: ai-factory extension list 2>&1 | grep "ai-factory-extension-remote-skills"
         working-directory: /tmp/test-project
 
       - name: Verify skill command works
