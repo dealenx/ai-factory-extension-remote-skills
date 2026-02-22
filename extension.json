@@ -7,6 +7,11 @@
       "name": "hello",
       "description": "Say hello from extension",
       "module": "./commands/hello.js"
+    },
+    {
+      "name": "hello-agents",
+      "description": "Say hello to all agents in .ai-factory.json manifest",
+      "module": "./commands/hello-agents.js"
     }
   ],
   "agents": [
