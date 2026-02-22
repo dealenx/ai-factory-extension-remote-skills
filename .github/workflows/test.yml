@@ -1,0 +1,49 @@
+name: Test Extension
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout extension
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install ai-factory from source
+        run: |
+          git clone --depth 1 https://github.com/lee-to/ai-factory.git /tmp/ai-factory
+          cd /tmp/ai-factory
+          npm ci
+          npm run build
+          npm link
+
+      - name: Create test project
+        run: |
+          mkdir /tmp/test-project
+          cd /tmp/test-project
+          ai-factory init
+
+      - name: Install extension
+        run: |
+          cd /tmp/test-project
+          ai-factory extension add $GITHUB_WORKSPACE
+
+      - name: Verify extension registered
+        run: |
+          cd /tmp/test-project
+          ai-factory extension list | grep -q "ai-factory-extension-remote-skills"
+
+      - name: Verify skill command works
+        run: |
+          cd /tmp/test-project
+          ai-factory skill list
