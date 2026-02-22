@@ -28,5 +28,11 @@
       }
     }
   ],
-  "extensions": []
+  "extensions": [
+    {
+      "name": "aif-ext-hello",
+      "source": "https://github.com/dealenx/ai-factory-extension-remote-skills",
+      "version": "1.0.0"
+    }
+  ]
 }
