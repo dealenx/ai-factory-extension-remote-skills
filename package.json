@@ -1,1 +1,6 @@
-{ "type": "module" }
+{
+  "name": "ai-factory-extension-remote-skills",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "AI Factory extension: install, update, remove skills from GitHub repositories"
+}

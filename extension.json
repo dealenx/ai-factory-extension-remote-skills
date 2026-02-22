@@ -1,45 +1,12 @@
 {
-  "name": "aif-ext-hello",
+  "name": "ai-factory-extension-remote-skills",
   "version": "1.0.0",
-  "description": "Test extension: hello world command, implement injection, custom skill, custom agent, MCP server",
+  "description": "Remote skills management: install, update, remove skills from GitHub repositories",
   "commands": [
     {
-      "name": "hello",
-      "description": "Say hello from extension",
-      "module": "./commands/hello.js"
-    },
-    {
-      "name": "hello-agents",
-      "description": "Say hello to all agents in .ai-factory.json manifest",
-      "module": "./commands/hello-agents.js"
-    }
-  ],
-  "agents": [
-    {
-      "id": "test-agent",
-      "displayName": "Test Agent",
-      "configDir": ".test-agent",
-      "skillsDir": ".test-agent/skills",
-      "settingsFile": null,
-      "supportsMcp": false,
-      "skillsCliAgent": null
-    }
-  ],
-  "injections": [
-    {
-      "target": "aif-implement",
-      "position": "append",
-      "file": "./injections/implement-extra.md"
-    }
-  ],
-  "skills": [
-    "skills/aif-hello-world"
-  ],
-  "mcpServers": [
-    {
-      "key": "hello-mcp",
-      "template": "./mcp/hello-mcp.json",
-      "instruction": "Hello MCP: Set HELLO_API_KEY environment variable"
+      "name": "skill",
+      "description": "Manage remote skills (add/remove/list/update)",
+      "module": "./commands/skill.js"
     }
   ]
 }
