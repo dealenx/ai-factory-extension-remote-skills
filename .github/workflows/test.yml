@@ -27,23 +27,17 @@ jobs:
           npm run build
           npm link
 
-      - name: Create test project
-        run: |
-          mkdir /tmp/test-project
-          cd /tmp/test-project
-          ai-factory init
+      - name: Create test project from example
+        run: cp -r $GITHUB_WORKSPACE/examples/simple_project /tmp/test-project
 
       - name: Install extension
-        run: |
-          cd /tmp/test-project
-          ai-factory extension add $GITHUB_WORKSPACE
+        run: ai-factory extension add $GITHUB_WORKSPACE
+        working-directory: /tmp/test-project
 
       - name: Verify extension registered
-        run: |
-          cd /tmp/test-project
-          ai-factory extension list | grep -q "ai-factory-extension-remote-skills"
+        run: ai-factory extension list | grep -q "ai-factory-extension-remote-skills"
+        working-directory: /tmp/test-project
 
       - name: Verify skill command works
-        run: |
-          cd /tmp/test-project
-          ai-factory skill list
+        run: ai-factory skill list
+        working-directory: /tmp/test-project
